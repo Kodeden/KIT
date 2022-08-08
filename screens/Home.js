@@ -26,8 +26,13 @@ export default function Home() {
             <TouchableOpacity 
                 title="to Profile" 
                 onPress={() => {navigation.navigate("Profile")}} 
-                style={styles.profileButton}
+                style={styles.button}
             ><Text>To Profiles</Text></TouchableOpacity>
+
+            <TouchableOpacity
+            title="New Friend"
+            style={styles.button}
+            ><Text>Add Friend</Text></TouchableOpacity>
         </View>
         </SafeAreaView>
     );
@@ -41,15 +46,19 @@ const styles = StyleSheet.create({
 
     profileBtnCtn:{
         flex:1,
+        flexDirection:'row',
+        justifyContent:'space-around'
     },
 
     KIT:{
         height:650,
-        width:400,
-        backgroundColor:'cyan',
+        width:390,
+        borderWidth:3,
         flexDirection:'row',
         justifyContent:'space-between',
-        alignItems:'flex-start'
+        alignItems:'flex-start',
+        marginRight: 15,
+        marginLeft:1,
     },
 
     date:{
@@ -61,11 +70,11 @@ const styles = StyleSheet.create({
         width:30,
     },
 
-    profileButton:{
+    button:{
         marginTop:651,
         height:40,
         width:80,
-        backgroundColor:'red',
+        backgroundColor:'blue',
         justifyContent:'center',
         alignItems:'center',
     },
