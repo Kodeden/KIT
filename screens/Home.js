@@ -6,7 +6,7 @@ export default function Home() {
     const navigation = useNavigation();
     return (
         <SafeAreaView>
-            <Button title="to Profile" onPress={() => {navigation.navigate("Profile", {id: 31})}} ></Button>
+            <Button title="to Profile" onPress={() => {navigation.navigate("Profile")}} ></Button>
         </SafeAreaView>
     );
 }

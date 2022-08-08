@@ -1,14 +1,15 @@
 import { Text, SafeAreaView, TouchableOpacity, Image, StyleSheet, View } from "react-native";
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
-import friendsList from "../assets/FriendsList.js";
+import { add, remove, dateStamp } from "../redux/FriendListSlice";
 
 export default function Profile({ route }) {
     const navigation = useNavigation();
-    const list = friendsList();
+    const list = useSelector((state) => state.friendList);
+    const dispatch = useDispatch();
     const id = route.params?.id || 0;
     const currentEntry = list.find(entry => entry.id === id);
-    const fullDate = currentEntry.month+"/"+currentEntry.date+"/"+currentEntry.year;
 
     return (
         <SafeAreaView>
@@ -17,8 +18,9 @@ export default function Profile({ route }) {
                 <Text style={styles.profileText}>First Name: {currentEntry.firstName}</Text>
                 <Text style={styles.profileText}>Last Name: {currentEntry.lastName}</Text>
                 <Text style={styles.profileText}>Phone Number: {currentEntry.phoneNumber}</Text>
-                <Text style={styles.profileText}>Last Contact Date: {(currentEntry.date === 0) ? "Unknown" :  fullDate}</Text>
-                <TouchableOpacity style={styles.stamp} onPress={() => console.log(currentEntry)}><Text>Quick</Text><Text>Stamp</Text></TouchableOpacity>
+                <Text style={styles.profileText}>Last Contact Date: {currentEntry.date}</Text>
+                <TouchableOpacity style={styles.stamp} onPress={() => dispatch(dateStamp({date: Date(), id: currentEntry.id}))}><Text>Quick</Text><Text>Stamp</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.stamp} onPress={() => console.log(list)}><Text>Test</Text></TouchableOpacity>
             </View>
         </SafeAreaView>
     );

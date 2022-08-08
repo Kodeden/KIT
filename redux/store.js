@@ -1,7 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
+import friendListReducer from "./FriendListSlice";
 import { combineReducers } from "redux";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import friendListReducer from "./FriendListSlice";
+
 import { 
     FLUSH, 
     PAUSE,
@@ -18,7 +19,7 @@ const rootReducer = combineReducers({
 })
 
 const persistConfig = {
-    key: "root",
+    key: "new4",
     version: 1,
     storage: AsyncStorage,
 }
