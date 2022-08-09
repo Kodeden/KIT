@@ -1,22 +1,25 @@
 import { SafeAreaView, Button, TouchableOpacity, StyleSheet, View, Text, TextInput, Image } from "react-native";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
+import { add, remove, dateStamp } from "../redux/FriendListSlice";
+import { useSelector, useDispatch } from "react-redux";
 
 
 export default function Home() {
     const navigation = useNavigation();
 
 
+
     return (
         <SafeAreaView>
         <View style={styles.mainPage}>
             <View style={styles.KIT}>
-                <TextInput>Jeremy Eastman</TextInput>
-                <TextInput style={styles.date}></TextInput>
+                <Text style={styles.friends}> Jeremy Eastman</Text>
                 <TouchableOpacity>
                     <Image
                     style={styles.contactedBtn}
-                    source={require("../assets/speechbubble.png")}>
+                    source={require("../assets/speechbubble.png")}
+                    onPress={() => dispatch(dateStamp())}>
                     </Image>
                 </TouchableOpacity>
             </View>
@@ -69,6 +72,9 @@ const styles = StyleSheet.create({
         height:30,
         width:30,
     },
+
+    friends:{},
+
 
     button:{
         marginTop:651,
