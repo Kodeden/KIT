@@ -13,23 +13,35 @@ export default function AddFriend() {
     return (
         <SafeAreaView>
             <View style={styles.AddFrdPge}>
-                <View style={styles.inputFields}>
-                    <Text>First Name:</Text><TextInput 
-                    placeholder="First Name">
-                    </TextInput>
-                </View>
-                <View style={styles.inputFields}>
-                    <Text>Last Name:</Text><TextInput 
-                    placeholder="Last Name">
-                    </TextInput>
-                </View>
-                <View style={styles.inputFields}>
-                    <Text>Phone Number:</Text><TextInput 
-                    keyboardType="number-pad"
-                    placeholder="(000)-000-0000">
-                    </TextInput>
+                <View style={styles.inputContainer}>
+                    <View style={styles.inputFields}>
+                        <Text>First Name:</Text><TextInput 
+                        placeholder="First Name">
+                        </TextInput>
+                    </View>
+
+                    <View style={styles.inputFields}>
+                        <Text>Last Name:</Text><TextInput 
+                        placeholder="Last Name">
+                        </TextInput>
+                    </View>
+
+                    <View style={styles.inputFields}>
+                        <Text>Phone Number:</Text><TextInput 
+                        keyboardType="number-pad"
+                        placeholder="(000)-000-0000">
+                        </TextInput>
+                    </View>
+
                 </View>
 
+                <View style={styles.buttonContainer}>
+                    <TouchableOpacity
+                         style={styles.button}
+                    ><Text style={{color:'white'}}>Submit</Text>
+                    </TouchableOpacity>
+                </View>
+                
             </View>
         </SafeAreaView>
     );
@@ -39,10 +51,34 @@ const styles = StyleSheet.create({
     AddFrdPge:{
         height:800,
         width:400,
-
     },
+
+    inputContainer:{
+        height:100,
+        width:400,
+        borderWidth:3,
+        margin:1,
+        borderColor:'black',
+    },
+
     inputFields:{
         flexDirection:'row',
         justifyContent:'space-around',
+    },
+
+    buttonContainer:{
+        height:100,
+        width:400,
+        alignItems:'center',
+    },
+
+    button:{
+        height:40,
+        width:80,
+        backgroundColor:'blue',
+        justifyContent:'center',
+        alignItems:'center',
+        borderRadius: 10,
+        borderWidth:1,
     },
 })

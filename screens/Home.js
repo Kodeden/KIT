@@ -36,13 +36,13 @@ export default function Home({ route }) {
                     title="to Profile" 
                     onPress={() => {navigation.navigate("Profile")}} 
                     style={styles.button}
-                ><Text>To Profiles</Text></TouchableOpacity>
+                ><Text style={{color:'white'}}>To Profiles</Text></TouchableOpacity>
 
                 <TouchableOpacity
                 title="New Friend"
                 style={styles.button}
                 onPress={() => {navigation.navigate("AddFriend")}}
-                ><Text>Add Friend</Text></TouchableOpacity>
+                ><Text style={{color:'white'}}>Add Friend</Text></TouchableOpacity>
             </View>
         </SafeAreaView>
     );
@@ -57,7 +57,8 @@ const styles = StyleSheet.create({
     navBtnCtn:{
         flex:1,
         flexDirection:'row',
-        justifyContent:'space-around'
+        justifyContent:'space-around',
+        marginTop:2,
     },
 
     KIT:{
@@ -91,6 +92,8 @@ const styles = StyleSheet.create({
         backgroundColor:'blue',
         justifyContent:'center',
         alignItems:'center',
+        borderRadius: 10,
+        borderWidth:1,
     },
 
 })
