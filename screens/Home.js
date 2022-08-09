@@ -1,42 +1,49 @@
 import { SafeAreaView, Button, TouchableOpacity, StyleSheet, View, Text, TextInput, Image } from "react-native";
-import React from "react";
+import React ,{useEffect}from "react";
 import { useNavigation } from "@react-navigation/native";
 import { add, remove, dateStamp } from "../redux/FriendListSlice";
 import { useSelector, useDispatch } from "react-redux";
 
 
-export default function Home() {
+export default function Home({ route }) {
     const navigation = useNavigation();
-
+    const dispatch = useDispatch();
+    const friends = useSelector(state => state.friendList)
+    const id = route.params?.id || 0;
+    const friendsList = friends.find(entry => entry.id === id);
+    
 
 
     return (
         <SafeAreaView>
-        <View style={styles.mainPage}>
-            <View style={styles.KIT}>
-                <Text style={styles.friends}> Jeremy Eastman</Text>
-                <TouchableOpacity>
-                    <Image
-                    style={styles.contactedBtn}
-                    source={require("../assets/speechbubble.png")}
-                    onPress={() => dispatch(dateStamp())}>
-                    </Image>
-                </TouchableOpacity>
+            <View style={styles.mainPage}>
+                <View style={styles.KIT}>
+                    <Text>Jeremy Eastman</Text>
+                    <Text>10-15-2021</Text>
+                            <TouchableOpacity>
+                                <Image
+                                style={styles.contactedBtn}
+                                source={require("../assets/speechbubble.png")}
+                                onPress={() => dispatch(dateStamp())}>
+                                </Image>
+                            </TouchableOpacity>
+
+                </View>
+
             </View>
+            <View style={styles.navBtnCtn}>
+                <TouchableOpacity 
+                    title="to Profile" 
+                    onPress={() => {navigation.navigate("Profile")}} 
+                    style={styles.button}
+                ><Text>To Profiles</Text></TouchableOpacity>
 
-        </View>
-        <View style={styles.profileBtnCtn}>
-            <TouchableOpacity 
-                title="to Profile" 
-                onPress={() => {navigation.navigate("Profile")}} 
+                <TouchableOpacity
+                title="New Friend"
                 style={styles.button}
-            ><Text>To Profiles</Text></TouchableOpacity>
-
-            <TouchableOpacity
-            title="New Friend"
-            style={styles.button}
-            ><Text>Add Friend</Text></TouchableOpacity>
-        </View>
+                onPress={() => {navigation.navigate("AddFriend")}}
+                ><Text>Add Friend</Text></TouchableOpacity>
+            </View>
         </SafeAreaView>
     );
 }
@@ -47,7 +54,7 @@ const styles = StyleSheet.create({
         flexDirection:'row',
     },
 
-    profileBtnCtn:{
+    navBtnCtn:{
         flex:1,
         flexDirection:'row',
         justifyContent:'space-around'
@@ -75,6 +82,7 @@ const styles = StyleSheet.create({
 
     friends:{},
 
+    friendsContainer:{},
 
     button:{
         marginTop:651,
@@ -86,3 +94,12 @@ const styles = StyleSheet.create({
     },
 
 })
+
+
+
+
+//{friendsList.map((friends) => (
+   // <View key={friends.id} style={styles.friendsContainer}>
+    //<Text style={styles.friends}>{friends.firstName} {friends.lastName} {friends.date}</Text>
+    //</View>
+//))}
