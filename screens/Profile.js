@@ -21,6 +21,11 @@ export default function Profile({ route }) {
                 <Text style={styles.profileText}>Last Contact Date: {currentEntry.date}</Text>
                 <TouchableOpacity style={styles.stamp} onPress={() => dispatch(dateStamp({date: Date(), id: currentEntry.id}))}><Text>Quick</Text><Text>Stamp</Text></TouchableOpacity>
                 <TouchableOpacity style={styles.stamp} onPress={() => console.log(list)}><Text>Test</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.stamp} onPress={() => {
+                    dispatch(remove(currentEntry.id));
+                    navigation.navigate("Home")
+                }}><Text>Remove Friend</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.stamp} onPress={() => {navigation.navigate("AddFriend")}}><Text>Add Friend</Text></TouchableOpacity>
             </View>
         </SafeAreaView>
     );
