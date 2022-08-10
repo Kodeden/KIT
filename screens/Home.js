@@ -24,7 +24,7 @@ export default function Home({ route }) {
                                 <Image
                                 style={styles.contactedBtn}
                                 source={require("../assets/speechbubble.png")}
-                                onPress={() => dispatch(dateStamp())}>
+                                onPress={() => dispatch(dateStamp({date: Date(), id: friends.id}))}>
                                 </Image>
                             </TouchableOpacity>
 

@@ -16,20 +16,23 @@ export default function AddFriend() {
                 <View style={styles.inputContainer}>
                     <View style={styles.inputFields}>
                         <Text>First Name:</Text><TextInput 
+                        style={{borderWidth:1, padding:3, width:120}} 
                         placeholder="First Name">
                         </TextInput>
                     </View>
 
                     <View style={styles.inputFields}>
                         <Text>Last Name:</Text><TextInput 
+                        style={{borderWidth:1, padding:3, width:120}} 
                         placeholder="Last Name">
                         </TextInput>
                     </View>
 
                     <View style={styles.inputFields}>
-                        <Text>Phone Number:</Text><TextInput 
+                        <Text>Phone Number:</Text><TextInput
+                        style={{borderWidth:1, padding:3, width:125, marginLeft:-10}} 
                         keyboardType="number-pad"
-                        placeholder="(000)-000-0000">
+                        placeholder="(999)-999-9999">
                         </TextInput>
                     </View>
 
@@ -54,16 +57,18 @@ const styles = StyleSheet.create({
     },
 
     inputContainer:{
-        height:100,
+        height:130,
         width:400,
-        borderWidth:3,
+        borderWidth:2,
         margin:1,
         borderColor:'black',
+        
     },
 
     inputFields:{
         flexDirection:'row',
         justifyContent:'space-around',
+        marginTop:5,
     },
 
     buttonContainer:{
