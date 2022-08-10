@@ -10,8 +10,8 @@ export default function Home() {
     const navigation = useNavigation();
     const dispatch = useDispatch();
     const friends = useSelector(state => state.friendList)
-
-
+    const list = friends;
+    //list.sort(compareAsc); //goal is to sort the list by recent contact
     
 
 
@@ -19,31 +19,36 @@ export default function Home() {
         <SafeAreaView>
             <View style={styles.mainPage}>
                 <View style={styles.KIT}>
-                    {friends.map((friends) => (
+                    {list.map((friends) => (
+
                     <View key={friends.id} style={styles.friendsContainer}>    
                         <Text style={styles.friends}>{friends.firstName} {friends.lastName}</Text> 
                         <Text style={styles.friends}>{friends.date}</Text>
 
-                    <TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => {navigation.navigate("Profile", {id: friends.id})}}>
+                        <Image
+                        style={styles.contactedBtn}
+                        source={require("../assets/emptyAvatar.png")}>                           
+                        </Image>
+                    </TouchableOpacity>  
+
+
+                    <TouchableOpacity
+                        onPress={() => dispatch(dateStamp({date: format(new Date(), 'MM/dd/yyyy'), id: friends.id}))}>
                         <Image
                         style={styles.contactedBtn}
                         source={require("../assets/speechbubble.png")}
-                        onPress={() => dispatch(dateStamp({date: Date(), id: friends.id}))}>
-                        </Image>
+                        ></Image>
                     </TouchableOpacity>
 
                     </View>
+
                     ))}            
                 </View>
 
             </View>
             <View style={styles.navBtnCtn}>
-                <TouchableOpacity 
-                    title="to Profile" 
-                    onPress={() => {navigation.navigate("Profile")}} 
-                    style={styles.button}
-                ><Text style={{color:'white'}}>To Profiles</Text></TouchableOpacity>
-
                 <TouchableOpacity
                 title="New Friend"
                 style={styles.button}
@@ -104,8 +109,7 @@ const styles = StyleSheet.create({
 
 
 
-//{friendsList.map((friends) => (
-   // <View key={friends.id} style={styles.friendsContainer}>
-    //<Text style={styles.friends}>{friends.firstName} {friends.lastName} {friends.date}</Text>
-    //</View>
-//))}
+//                    {if friends.id !== 0 {
+ //                       return(
+
+ //"Profile", id: friends.id)
