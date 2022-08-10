@@ -5,12 +5,12 @@ import { add, remove, dateStamp } from "../redux/FriendListSlice";
 import { useSelector, useDispatch } from "react-redux";
 
 
-export default function Home({ route }) {
+export default function Home() {
     const navigation = useNavigation();
     const dispatch = useDispatch();
     const friends = useSelector(state => state.friendList)
-    const id = route.params?.id || 0;
-    const friendsList = friends.find(entry => entry.id === id);
+
+
     
 
 
@@ -18,8 +18,11 @@ export default function Home({ route }) {
         <SafeAreaView>
             <View style={styles.mainPage}>
                 <View style={styles.KIT}>
-                    <Text>Jeremy Eastman</Text>
-                    <Text>10-15-2021</Text>
+                    {friends.map((friends) => (
+                    <View key={friends.id} style={styles.friendsContainer}>
+                    <Text style={styles.friends}>{friends.firstName} {friends.lastName} {friends.date}</Text>
+                    </View>
+                    ))}
                             <TouchableOpacity>
                                 <Image
                                 style={styles.contactedBtn}
