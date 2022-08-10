@@ -2,12 +2,16 @@ import { SafeAreaView, Button, TouchableOpacity, StyleSheet, View, Text, TextInp
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { useSelector, useDispatch } from "react-redux";
+import { useState } from "react";
+import { add, remove, dateStamp } from "../redux/FriendListSlice";
 
 
 export default function AddFriend() {
     const navigation = useNavigation();
-
-    
+    const [newFirstName, onChangeNewFirstName] = useState("");
+    const [newLastName, onChangeNewLastName] = useState("");
+    const [newPhoneNumber, onChangeNewPhoneNumber] = useState("");
+    const dispatch = useDispatch();
 
 
     return (
@@ -16,6 +20,8 @@ export default function AddFriend() {
                 <View style={styles.inputContainer}>
                     <View style={styles.inputFields}>
                         <Text>First Name:</Text><TextInput 
+                        value={newFirstName}
+                        onChangeText={onChangeNewFirstName}
                         style={{borderWidth:1, padding:3, width:120}} 
                         placeholder="First Name">
                         </TextInput>
@@ -23,6 +29,8 @@ export default function AddFriend() {
 
                     <View style={styles.inputFields}>
                         <Text>Last Name:</Text><TextInput 
+                        value={newLastName}
+                        onChangeText={onChangeNewLastName}
                         style={{borderWidth:1, padding:3, width:120}} 
                         placeholder="Last Name">
                         </TextInput>
@@ -30,6 +38,8 @@ export default function AddFriend() {
 
                     <View style={styles.inputFields}>
                         <Text>Phone Number:</Text><TextInput
+                        value={newPhoneNumber}
+                        onChangeText={onChangeNewPhoneNumber}
                         style={{borderWidth:1, padding:3, width:125, marginLeft:-10}} 
                         keyboardType="number-pad"
                         placeholder="(999)-999-9999">
@@ -41,6 +51,11 @@ export default function AddFriend() {
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity
                          style={styles.button}
+                         onPress={() => {
+                            dispatch(add({firstName: newFirstName, lastName: newLastName, phoneNumber: newPhoneNumber}));
+                            navigation.navigate("Home");
+                            }}
+
                     ><Text style={{color:'white'}}>Submit</Text>
                     </TouchableOpacity>
                 </View>

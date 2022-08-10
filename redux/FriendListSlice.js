@@ -22,7 +22,6 @@ export const friendListSlice = createSlice({
     dateStamp: (state, { payload }) => {
       const currentIndex = state.findIndex(entry => entry.id === payload.id);
       state[currentIndex].date = payload.date;
-
     }
   },
 });
