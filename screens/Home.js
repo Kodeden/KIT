@@ -23,13 +23,13 @@ export default function Home() {
                     <Text style={styles.friends}>{friends.firstName} {friends.lastName} {friends.date}</Text>
                     </View>
                     ))}
-                            <TouchableOpacity>
-                                <Image
-                                style={styles.contactedBtn}
-                                source={require("../assets/speechbubble.png")}
-                                onPress={() => dispatch(dateStamp({date: Date(), id: friends.id}))}>
-                                </Image>
-                            </TouchableOpacity>
+                    <TouchableOpacity>
+                        <Image
+                        style={styles.contactedBtn}
+                        source={require("../assets/speechbubble.png")}
+                         onPress={() => dispatch(dateStamp({date: Date(), id: friends.id}))}>
+                        </Image>
+                    </TouchableOpacity>
 
                 </View>
 
