@@ -20,13 +20,13 @@ export default function Profile({ route }) {
                 <Text style={styles.profileText}>Last Name: {currentEntry.lastName}</Text>
                 <Text style={styles.profileText}>Phone Number: {currentEntry.phoneNumber}</Text>
                 <Text style={styles.profileText}>Last Contact Date: {currentEntry.date}</Text>
-                <TouchableOpacity style={styles.stamp} onPress={() => dispatch(dateStamp({date: format(new Date(), 'MM/dd/yyyy'), id: currentEntry.id}))}><Text>Quick</Text><Text>Stamp</Text></TouchableOpacity>
-                <TouchableOpacity style={styles.stamp} onPress={() => console.log(list)}><Text>Test</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.stamp} onPress={() => dispatch(dateStamp({date: format(new Date(), 'MM/dd/yyyy'), id: currentEntry.id}))}><Text style={{color:'white'}}>Quick</Text><Text style={{color:'white'}}>Stamp</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.stamp} onPress={() => console.log(list)}><Text style={{color:'white'}}>Test</Text></TouchableOpacity>
                 <TouchableOpacity style={styles.stamp} onPress={() => {
                     dispatch(remove(currentEntry.id));
                     navigation.navigate("Home")
-                }}><Text>Remove Friend</Text></TouchableOpacity>
-                <TouchableOpacity style={styles.stamp} onPress={() => {navigation.navigate("AddFriend")}}><Text>Add Friend</Text></TouchableOpacity>
+                }}><Text style={{color:'white'}}>Remove Friend</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.stamp} onPress={() => {navigation.navigate("AddFriend")}}><Text style={{color:'white'}}>Add Friend</Text></TouchableOpacity>
             </View>
         </SafeAreaView>
     );
@@ -45,15 +45,14 @@ const styles = StyleSheet.create({
     },
 
     stamp: {
-        width: 70,
-        height: 70,
-        margin: 15,
-        padding: 10,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#AA66AA',
-        borderRadius: 35,
-        borderWidth: 2,
+        margin:5,
+        height:40,
+        width:80,
+        backgroundColor:'blue',
+        justifyContent:'center',
+        alignItems:'center',
+        borderRadius: 10,
+        borderWidth:1,
     }
   });
   

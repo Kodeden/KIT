@@ -27,3 +27,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+
+//function wishlist
+//1. Sort by contacted date with oldest at top
+//2. color 6 months or older in red?
+//3. Notifications for 6 months or older?

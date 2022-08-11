@@ -112,4 +112,3 @@ const styles = StyleSheet.create({
 //                    {if friends.id !== 0 {
  //                       return(
 
- //"Profile", id: friends.id)
