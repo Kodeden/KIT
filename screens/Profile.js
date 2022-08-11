@@ -1,11 +1,33 @@
-import { Text, SafeAreaView, TouchableOpacity, Image, StyleSheet, View } from "react-native";
-import React from "react";
+import { Alert, Text, SafeAreaView, TouchableOpacity, Image, StyleSheet, View } from "react-native";
+import React ,{useState}  from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { add, remove, dateStamp } from "../redux/FriendListSlice";
 import { format, compareAsc } from 'date-fns'
 
+
+
 export default function Profile({ route }) {
+
+    const showConfirmDialog = (id) => {
+      return Alert.alert(
+        "Confirm Remove Friend",
+        "Are you sure you want to remove this friend?",
+        [
+          {
+            text: "Yes",
+            onPress: () => {
+                navigation.navigate("Home");
+                dispatch(remove(id));
+            },
+          },
+          {
+            text: "No",
+          },
+        ]
+      );
+    };
+
     const navigation = useNavigation();
     const list = useSelector((state) => state.friendList);
     const dispatch = useDispatch();
@@ -21,12 +43,7 @@ export default function Profile({ route }) {
                 <Text style={styles.profileText}>Phone Number: {currentEntry.phoneNumber}</Text>
                 <Text style={styles.profileText}>Last Contact Date: {currentEntry.date}</Text>
                 <TouchableOpacity style={styles.stamp} onPress={() => dispatch(dateStamp({date: format(new Date(), 'MM/dd/yyyy'), id: currentEntry.id}))}><Text style={{color:'white'}}>Quick</Text><Text style={{color:'white'}}>Stamp</Text></TouchableOpacity>
-                <TouchableOpacity style={styles.stamp} onPress={() => console.log(list)}><Text style={{color:'white'}}>Test</Text></TouchableOpacity>
-                <TouchableOpacity style={styles.stamp} onPress={() => {
-                    dispatch(remove(currentEntry.id));
-                    navigation.navigate("Home")
-                }}><Text style={{color:'white'}}>Remove Friend</Text></TouchableOpacity>
-                <TouchableOpacity style={styles.stamp} onPress={() => {navigation.navigate("AddFriend")}}><Text style={{color:'white'}}>Add Friend</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.stamp} onPress={() => showConfirmDialog(currentEntry.id)}><Text style={{color:'white'}}>Remove Friend</Text></TouchableOpacity>
             </View>
         </SafeAreaView>
     );
