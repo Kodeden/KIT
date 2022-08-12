@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { format, compareAsc, compareDesc } from 'date-fns'
 
 
+
 export default function Home() {
     const navigation = useNavigation();
     const dispatch = useDispatch();
@@ -72,6 +73,12 @@ export default function Home() {
                 style={styles.button}
                 onPress={() => {navigation.navigate("AddFriend")}}
                 ><Text style={{color:'white'}}>Add Friend</Text></TouchableOpacity>
+
+                <TouchableOpacity
+                title="Test TableView"
+                style={styles.button}
+                onPress={() => {navigation.navigate("TestTableView")}}
+                ><Text style={{color:'white'}}>Test TableView</Text></TouchableOpacity>
             </View>
         </SafeAreaView>
     );
