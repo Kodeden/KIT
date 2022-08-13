@@ -12,9 +12,15 @@ export default function StackNavigator () {
     return (
         <Stack.Navigator>
             <Stack.Group>
-                <Stack.Screen name="Home" component={Home} />
-                <Stack.Screen name="Profile" component={Profile} />
-                <Stack.Screen name="AddFriend" component={AddFriend} />
+                <Stack.Screen name="Home"
+                    options={{headerStyle:{backgroundColor:'#CDCDCD'}}} 
+                    component={Home} />
+                <Stack.Screen name="Profile"
+                    options={{headerStyle:{backgroundColor:'#CDCDCD'}}}
+                    component={Profile} />
+                <Stack.Screen name="AddFriend" 
+                    options={{headerStyle:{backgroundColor:'#CDCDCD'}}}
+                    component={AddFriend} />
                 <Stack.Screen name="TestTableView" component={TestTableView} />
             </Stack.Group>
         </Stack.Navigator>

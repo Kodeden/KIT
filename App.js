@@ -6,6 +6,7 @@ import { store } from './redux/store';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistor } from './redux/store';
 
+
 export default function App() {
   return (
     <Provider store={store} style={styles.container} >

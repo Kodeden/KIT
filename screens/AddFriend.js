@@ -56,7 +56,7 @@ export default function AddFriend() {
                             navigation.navigate("Home");
                             }}
 
-                    ><Text style={{color:'white'}}>Submit</Text>
+                    ><Text>Submit</Text>
                     </TouchableOpacity>
                 </View>
                 
@@ -69,6 +69,7 @@ const styles = StyleSheet.create({
     AddFrdPge:{
         height:800,
         width:400,
+        backgroundColor:'#CDCDCD',
     },
 
     inputContainer:{
@@ -77,6 +78,7 @@ const styles = StyleSheet.create({
         borderWidth:2,
         margin:1,
         borderColor:'black',
+        backgroundColor:'#88BBD6',
         
     },
 
@@ -95,7 +97,7 @@ const styles = StyleSheet.create({
     button:{
         height:40,
         width:80,
-        backgroundColor:'blue',
+        backgroundColor:'#99D3DF',
         justifyContent:'center',
         alignItems:'center',
         borderRadius: 10,
