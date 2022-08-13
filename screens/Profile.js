@@ -3,7 +3,7 @@ import React ,{useState}  from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { add, remove, dateStamp } from "../redux/FriendListSlice";
-import { format, compareAsc } from 'date-fns'
+import convertUTCToLocalTime from "../functions/DateConversion";
 
 
 
@@ -41,8 +41,8 @@ export default function Profile({ route }) {
                 <Text style={styles.profileText}>First Name: {currentEntry.firstName}</Text>
                 <Text style={styles.profileText}>Last Name: {currentEntry.lastName}</Text>
                 <Text style={styles.profileText}>Phone Number: {currentEntry.phoneNumber}</Text>
-                <Text style={styles.profileText}>Last Contact Date: {currentEntry.date}</Text>
-                <TouchableOpacity style={styles.stamp} onPress={() => dispatch(dateStamp({date: format(new Date(), 'MM/dd/yyyy'), id: currentEntry.id}))}><Text>Quick</Text><Text>Stamp</Text></TouchableOpacity>
+                <Text style={styles.profileText}>Last Contact Date: {convertUTCToLocalTime(currentEntry.date)}</Text>
+                <TouchableOpacity style={styles.stamp} onPress={() => dispatch(dateStamp({date: new Date().toISOString(), id: currentEntry.id}))}><Text>Quick</Text><Text>Stamp</Text></TouchableOpacity>
                 <TouchableOpacity style={styles.stamp} onPress={() => showConfirmDialog(currentEntry.id)}><Text>Remove Friend</Text></TouchableOpacity>
             </View>
         </SafeAreaView>

@@ -14,7 +14,7 @@ const HanSolo = {
       firstName: 'Han', 
       lastName: 'Friend', 
       phoneNumber: '(555)555-5555', 
-      date: '08/6/2022',
+      date: new Date(1999, 2, 5).toISOString(),
     }
 
 const LeiaOrgana = {
@@ -22,7 +22,7 @@ const LeiaOrgana = {
       firstName: 'Leia', 
       lastName: 'Friend', 
       phoneNumber: '(555)555-5555', 
-      date: '08/2/2021',
+      date: new Date(2008, 5, 18).toISOString(),
     }
 
 const Luke = {
@@ -30,7 +30,7 @@ const Luke = {
       firstName: 'Luke', 
       lastName: 'Friend', 
       phoneNumber: '(555)555-5555', 
-      date: '08/4/2021',
+      date: new Date(2021, 11, 30).toISOString(),
     }
 
 export const friendListSlice = createSlice({

@@ -3,7 +3,7 @@ import React ,{useEffect} from "react";
 import { useNavigation } from "@react-navigation/native";
 import { add, remove, dateStamp } from "../redux/FriendListSlice";
 import { useSelector, useDispatch } from "react-redux";
-import { format, compareAsc, compareDesc } from 'date-fns'
+import convertUTCToLocalTime from "../functions/DateConversion";
 
 
 
@@ -12,23 +12,8 @@ export default function Home() {
     const navigation = useNavigation();
     const dispatch = useDispatch();
     const friends = useSelector(state => state.friendList);
-    /*const dateList = [];
-    var compareAsc = require('date-fns/compareAsc');
-    const sortedList = [];
 
-
-    friends.map((friend) => (
-        dateList.push(friend.date)
-    ));
-    const sortedDateList = dateList.sort(compareAsc);
-    sortedDateList.map((date) => (
-        friends.map((friend) => (
-            sortedList.push((friend.date == date) ? friend : {})                
-        ))
-    ));
-    const cleanedList = sortedList.filter((friend) => Object.keys(friend).length !== 0);
-*/
-
+    const sortedList = friends.slice().sort((a, b) => a.date.localeCompare(b.date));
 
     
 
@@ -38,14 +23,14 @@ export default function Home() {
             <ScrollView>
                 <View style={styles.mainPage}>
                     <View style={styles.KIT}>
-                        {friends.map((friends) => (
-                        friends.id !== 0 ? (
-                        <View key={friends.id} style={styles.friendsContainer}>    
-                            <Text style={styles.friends}>{friends.firstName} {friends.lastName}</Text> 
-                            <Text style={styles.friends}>{friends.date}</Text>
+                        {sortedList.map((friend) => (
+                        friend.id !== 0 ? (
+                        <View key={friend.id} style={styles.friendsContainer}>    
+                            <Text style={styles.friends}>{friend.firstName} {friend.lastName}</Text> 
+                            <Text style={styles.friends}>{convertUTCToLocalTime(friend.date)}</Text>
 
                             <TouchableOpacity
-                                onPress={() => {navigation.navigate("Profile", {id: friends.id})}}
+                                onPress={() => {navigation.navigate("Profile", {id: friend.id})}}
                                 style={styles.touchableButton}>
                                 <Image
                                 style={styles.contactedBtn}
@@ -55,7 +40,7 @@ export default function Home() {
 
 
                             <TouchableOpacity
-                                onPress={() => dispatch(dateStamp({date: format(new Date(), 'MM/dd/yyyy'), id: friends.id}))}
+                                onPress={() => dispatch(dateStamp({date: new Date().toISOString(), id: friend.id}))}
                                 style={styles.touchableButton}>
                                 <Image
                                 style={styles.contactedBtn}
