@@ -12,5 +12,5 @@ export default function convertUTCToLocalTime(dateString) {
         date.getSeconds(),
       );
       const localTime = new Date(milliseconds);
-      return (localTime.getMonth()+"/"+localTime.getDate()+"/"+localTime.getFullYear());
+      return ((localTime.getMonth()+1)+"/"+localTime.getDate()+"/"+localTime.getFullYear());
     };
