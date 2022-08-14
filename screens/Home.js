@@ -1,5 +1,5 @@
 import { SafeAreaView, Button, TouchableOpacity, StyleSheet, View, Text, TextInput, Image, ScrollView } from "react-native";
-import React ,{useEffect} from "react";
+import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { add, remove, dateStamp } from "../redux/FriendListSlice";
 import { useSelector, useDispatch } from "react-redux";

@@ -46,10 +46,17 @@ export const friendListSlice = createSlice({
     dateStamp: (state, { payload }) => {
       const currentIndex = state.findIndex(entry => entry.id === payload.id);
       state[currentIndex].date = payload.date;
+    },
+    update: (state, { payload }) => {
+      const currentIndex = state.findIndex(entry => entry.id === payload.id);
+      state[currentIndex].firstName = payload.firstName;
+      state[currentIndex].lastName = payload.lastName;
+      state[currentIndex].phoneNumber = payload.phoneNumber;
+      state[currentIndex].date = payload.date;
     }
   },
 });
 
-export const { add, remove, dateStamp} = friendListSlice.actions;
+export const { add, remove, dateStamp, update} = friendListSlice.actions;
 
 export default friendListSlice.reducer;
