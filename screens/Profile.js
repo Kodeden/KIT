@@ -42,7 +42,7 @@ export default function Profile({ route }) {
     const [newFirstName, onChangeNewFirstName] = useState(currentEntry.firstName);
     const [newLastName, onChangeNewLastName] = useState(currentEntry.lastName);
     const [newPhoneNumber, onChangeNewPhoneNumber] = useState(currentEntry.phoneNumber);
-    const [newDate, onChangeNewDate] = useState(currentEntry.date);
+    const [newDate, onChangeNewDate] = useState(new Date(currentEntry.date));
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
     const showDatePicker = () => {
       setDatePickerVisibility(true);
