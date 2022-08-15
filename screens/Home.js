@@ -79,6 +79,7 @@ const styles = StyleSheet.create({
         borderWidth:1,
         marginRight: 15,
         marginLeft:1,
+
     },
 
     contactedBtn:{
@@ -123,6 +124,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         borderWidth:1,
         paddingTop:2,
+        marginBottom: 30,
     },
 
 })

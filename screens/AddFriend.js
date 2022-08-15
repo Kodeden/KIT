@@ -13,6 +13,15 @@ export default function AddFriend() {
     const [newPhoneNumber, onChangeNewPhoneNumber] = useState("");
     const dispatch = useDispatch();
 
+    const formatPhoneNumber = (phoneNumberString) => {
+        var cleaned = ('' + phoneNumberString).replace(/\D/g, '')
+        var match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/)
+        if (match) {
+          return '(' + match[1] + ') ' + match[2] + '-' + match[3]
+        }
+        return null
+      }
+
 
     return (
         <SafeAreaView>
@@ -52,7 +61,7 @@ export default function AddFriend() {
                     <TouchableOpacity
                          style={styles.button}
                          onPress={() => {
-                            dispatch(add({firstName: newFirstName, lastName: newLastName, phoneNumber: newPhoneNumber}));
+                            dispatch(add({firstName: newFirstName, lastName: newLastName, phoneNumber: formatPhoneNumber(newPhoneNumber), date: new Date(0,0,0).toISOString()}));
                             navigation.navigate("Home");
                             }}
 

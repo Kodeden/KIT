@@ -29,6 +29,15 @@ export default function Profile({ route }) {
       );
     };
 
+    const formatPhoneNumber = (phoneNumberString) => {
+      var cleaned = ('' + phoneNumberString).replace(/\D/g, '')
+      var match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/)
+      if (match) {
+        return '(' + match[1] + ') ' + match[2] + '-' + match[3]
+      }
+      return null
+    }
+
     const [editMode, setEditMode] = useState(false);
     const toggleEditMode = () => {
       setEditMode(!editMode);
@@ -66,7 +75,7 @@ export default function Profile({ route }) {
                       <Text style={styles.profileText}>First Name: </Text><TextInput 
                       value={newFirstName}
                       onChangeText={onChangeNewFirstName}
-                      style={{borderWidth:1, padding:3, width:120}} >
+                      style={styles.profileTextInput} >
                       </TextInput>
                     </View>
                 }
@@ -76,7 +85,7 @@ export default function Profile({ route }) {
                       <Text style={styles.profileText}>Last Name: </Text><TextInput 
                       value={newLastName}
                       onChangeText={onChangeNewLastName}
-                      style={{borderWidth:1, padding:3, width:120}} >
+                      style={styles.profileTextInput} >
                       </TextInput>
                     </View>
                 }
@@ -86,24 +95,26 @@ export default function Profile({ route }) {
                       <Text style={styles.profileText}>Phone Number: </Text><TextInput 
                       value={newPhoneNumber}
                       onChangeText={onChangeNewPhoneNumber}
-                      style={{borderWidth:1, padding:3, width:120}} >
+                      style={styles.profileTextInput} >
                       </TextInput>
                     </View>
                 }
                 {!editMode ? 
                   <Text style={styles.profileText}>Last Contact Date: {convertUTCToLocalTime(currentEntry.date)}</Text> :
                   <View style={styles.editLine}>
-                    <Text style={styles.profileText}>Last Contact Date: {convertUTCToLocalTime(newDate)}</Text><TouchableOpacity style={styles.stamp} onPress={showDatePicker}><Text>Edit Date</Text></TouchableOpacity>
+                    <Text style={styles.profileText}>Last Contact Date: {convertUTCToLocalTime(newDate)}</Text><TouchableOpacity style={styles.stamp} onPress={showDatePicker}><Text style={styles.buttonText}>Edit Date</Text></TouchableOpacity>
                   </View>
                 }
-                <TouchableOpacity style={styles.stamp} onPress={() => dispatch(dateStamp({date: new Date().toISOString(), id: currentEntry.id}))}><Text>Quick</Text><Text>Stamp</Text></TouchableOpacity>
-                <TouchableOpacity style={styles.stamp} onPress={() => showConfirmDialog(currentEntry.id)}><Text>Remove Friend</Text></TouchableOpacity>
-                {!editMode ? <TouchableOpacity style={styles.stamp} onPress={() => toggleEditMode()}><Text>Edit Friend</Text></TouchableOpacity> :
+                <View style={styles.buttonRow}>
+                <TouchableOpacity style={styles.stamp} onPress={() => dispatch(dateStamp({date: new Date().toISOString(), id: currentEntry.id}))}><Text style={styles.buttonText}>Quick Stamp</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.stamp} onPress={() => showConfirmDialog(currentEntry.id)}><Text style={styles.buttonText}>Remove Friend</Text></TouchableOpacity>
+                {!editMode ? <TouchableOpacity style={styles.stamp} onPress={() => toggleEditMode()}><Text style={styles.buttonText}>Edit Friend</Text></TouchableOpacity> :
                   <TouchableOpacity style={styles.stamp} onPress={() => {
-                    dispatch(update({firstName: newFirstName, lastName: newLastName, phoneNumber: newPhoneNumber, date: newDate.toISOString(), id: currentEntry.id}));
+                    dispatch(update({firstName: newFirstName, lastName: newLastName, phoneNumber: formatPhoneNumber(newPhoneNumber), date: newDate.toISOString(), id: currentEntry.id}));
                     toggleEditMode()
-                  }}><Text>Save Friend</Text></TouchableOpacity>
+                  }}><Text style={styles.buttonText}>Save Friend</Text></TouchableOpacity>
                 }
+                </View>
                 <DateTimePickerModal
                   isVisible={isDatePickerVisible}
                   mode="date"
@@ -127,12 +138,21 @@ const styles = StyleSheet.create({
 
     profileText: {
         margin: 10,
+        fontSize: 20,
     },
+
+    profileTextInput: {
+      fontSize: 20,
+      borderWidth: 1, 
+      padding: 5, 
+      width: 180
+  },
 
     stamp: {
         margin:5,
-        height:40,
+        height:60,
         width:80,
+        flex: 1,
         backgroundColor:'#99D3DF',
         justifyContent:'center',
         alignItems:'center',
@@ -142,6 +162,17 @@ const styles = StyleSheet.create({
 
     editLine: {
       flexDirection: "row",
+      alignItems: 'center'
+    },
+
+    buttonRow: {
+      flexDirection: 'row',
+    },
+
+    buttonText: {
+      fontSize: 20,
+      paddingHorizontal: 15,
+      textAlign: 'center'
     }
   });
   
