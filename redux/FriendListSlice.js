@@ -3,10 +3,10 @@ import uuid from "react-native-uuid";
 
 const mysteryFriend = {
       id: 0, 
-      firstName: 'Mysterious', 
-      lastName: 'Friend', 
-      phoneNumber: '(555)555-5555', 
-      date: '0',
+      firstName: 'Error', 
+      lastName: 'Error', 
+      phoneNumber: 'Error', 
+      date: 'Error',
     }
 
 const HanSolo = {
@@ -53,10 +53,18 @@ export const friendListSlice = createSlice({
       state[currentIndex].lastName = payload.lastName;
       state[currentIndex].phoneNumber = payload.phoneNumber;
       state[currentIndex].date = payload.date;
+    },
+    setPhoto: (state, { payload }) => {
+      const currentIndex = state.findIndex(entry => entry.id === payload.id);
+      state[currentIndex].image = payload.image;
+    },
+    removePhoto: (state, { payload }) => {
+      const currentIndex = state.findIndex(entry => entry.id === payload.id);
+      state[currentIndex].image = 0;
     }
   },
 });
 
-export const { add, remove, dateStamp, update} = friendListSlice.actions;
+export const { add, remove, dateStamp, update, setPhoto, removePhoto } = friendListSlice.actions;
 
 export default friendListSlice.reducer;
