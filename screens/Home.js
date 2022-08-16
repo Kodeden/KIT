@@ -1,5 +1,5 @@
 import { SafeAreaView, Button, TouchableOpacity, StyleSheet, View, Text, TextInput, Image, ScrollView } from "react-native";
-import React from "react";
+import React, { useState }from "react";
 import { useNavigation } from "@react-navigation/native";
 import { add, remove, dateStamp } from "../redux/FriendListSlice";
 import { useSelector, useDispatch } from "react-redux";
@@ -15,13 +15,20 @@ export default function Home() {
 
     const sortedList = friends.slice().sort((a, b) => a.date.localeCompare(b.date));
 
+
+
     
 
 
     return (
-        <SafeAreaView>
-            <ScrollView>
+        <SafeAreaView style={styles.fullpage}>  
+            <View style={styles.filter}><TextInput
+                placeholder="Filter"
+                //onChangeText={filter} 
+            ></TextInput></View>
+            <ScrollView>    
                 <View style={styles.mainPage}>
+
                     <View style={styles.KIT}>
                         {sortedList.map((friend) => (
                         friend.id !== 0 ? (
@@ -67,14 +74,30 @@ export default function Home() {
 }
 
 const styles = StyleSheet.create({
+    fullpage:{
+        backgroundColor:'#CDCDCD',
+    },
+
     mainPage:{
         flex:5,
         flexDirection:'row',
         backgroundColor:'#88BBD6',
     },
 
+    filter:{
+       borderWidth:1,
+       width:"90%",
+       marginLeft:"5%",
+       marginBottom:5,
+       marginTop:5,
+       borderRadius:20,
+       paddingLeft:10, 
+       backgroundColor:'#88BBD6',
+
+    },
+
     KIT:{
-        height:650,
+        height:635,
         width:390,
         borderWidth:1,
         marginRight: 15,
