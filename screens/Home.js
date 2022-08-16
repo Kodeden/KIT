@@ -15,7 +15,20 @@ export default function Home() {
 
     const sortedList = friends.slice().sort((a, b) => a.date.localeCompare(b.date));
 
+    //const [firstName, setFirstName] = useState('')
+    //const [filteredList, setFilteredList] = useState(sortedList)
+    //const filter = () => {
+        //const keyword = target.value;
 
+        //if (keyword !== '') {
+            //const results = sortedList.filter((friend) =>{
+                //return friend.firstName.toLowerCase().startsWith(keyword.toLowerCase());
+            //});
+            //setFilteredList(results);
+        //} else {
+            //setFilteredList(sortedList);
+        //}
+   // }
 
     
 
@@ -24,6 +37,7 @@ export default function Home() {
         <SafeAreaView style={styles.fullpage}>  
             <View style={styles.filter}><TextInput
                 placeholder="Filter"
+                //value={firstName}
                 //onChangeText={filter} 
             ></TextInput></View>
             <ScrollView>    
