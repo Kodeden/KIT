@@ -83,8 +83,8 @@ const styles = StyleSheet.create({
 
     inputContainer:{
         height:130,
-        width:400,
-        borderWidth:2,
+        width:390,
+        borderWidth:1,
         margin:1,
         borderColor:'black',
         backgroundColor:'#88BBD6',
@@ -98,6 +98,7 @@ const styles = StyleSheet.create({
     },
 
     buttonContainer:{
+        marginTop:5,
         height:100,
         width:400,
         alignItems:'center',
