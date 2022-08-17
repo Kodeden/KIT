@@ -15,22 +15,22 @@ export default function Home() {
 
     const sortedList = friends.slice().sort((a, b) => a.date.localeCompare(b.date));
 
-    //const [firstName, setFirstName] = useState('');
-    //const [filteredList, setFilteredList] = useState(sortedList);
-    //const filter = (e) => {
-        //const keyword = e.target.value;
+    const [firstName, setFirstName] = useState('');
+    const [filteredList, setFilteredList] = useState(sortedList);
+    const filter = (e) => {
+        const keyword = e.target.value;
 
-        //if (keyword !== '') {
-            //const results = sortedList.filter((friend) =>{
-                //return friend.firstName.toLowerCase().startsWith(keyword.toLowerCase());
-            //});
-            //setFilteredList(results);
-        //} else {
-            //setFilteredList(sortedList);
-        //}
+        if (keyword !== '') {
+            const results = sortedList.filter((friend) =>{
+                return friend.firstName.toLowerCase().startsWith(keyword.toLowerCase());
+            });
+            setFilteredList(results);
+        } else {
+            setFilteredList(sortedList);
+        }
 
-        //setFirstName(keyword);
-    //};
+        setFirstName(keyword);
+    };
 
     
 
@@ -46,7 +46,7 @@ export default function Home() {
                 <View style={styles.mainPage}>
 
                     <View style={styles.KIT}>
-                        {sortedList.map((friend) => (
+                        {filteredList.map((friend) => (
                         friend.id !== 0 ? (
                         <View key={friend.id} style={styles.friendsContainer}>    
                             <Text style={styles.friends}>{friend.firstName} {friend.lastName}</Text> 
