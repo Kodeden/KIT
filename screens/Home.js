@@ -18,7 +18,7 @@ export default function Home() {
     const [firstName, setFirstName] = useState('');
     const [filteredList, setFilteredList] = useState(sortedList);
     const filter = (e) => {
-        const keyword = e.target.value;
+        const keyword = e;
 
         if (keyword !== '') {
             const results = sortedList.filter((friend) =>{
