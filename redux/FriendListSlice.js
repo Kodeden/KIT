@@ -10,7 +10,7 @@ const mysteryFriend = {
     }
 
 const HanSolo = {
-      id: 1, 
+      id: uuid.v4(), 
       firstName: 'Han', 
       lastName: 'Friend', 
       phoneNumber: '(555)555-5555', 
@@ -18,7 +18,7 @@ const HanSolo = {
     }
 
 const LeiaOrgana = {
-      id: 2, 
+      id: uuid.v4(), 
       firstName: 'Leia', 
       lastName: 'Friend', 
       phoneNumber: '(555)555-5555', 
@@ -26,7 +26,7 @@ const LeiaOrgana = {
     }
 
 const Luke = {
-      id: 3, 
+      id: uuid.v4(), 
       firstName: 'Luke', 
       lastName: 'Friend', 
       phoneNumber: '(555)555-5555', 
@@ -49,10 +49,7 @@ export const friendListSlice = createSlice({
     },
     update: (state, { payload }) => {
       const currentIndex = state.findIndex(entry => entry.id === payload.id);
-      state[currentIndex].firstName = payload.firstName;
-      state[currentIndex].lastName = payload.lastName;
-      state[currentIndex].phoneNumber = payload.phoneNumber;
-      state[currentIndex].date = payload.date;
+      state[currentIndex] = { ...state[currentIndex], ...payload}
     },
     setPhoto: (state, { payload }) => {
       const currentIndex = state.findIndex(entry => entry.id === payload.id);

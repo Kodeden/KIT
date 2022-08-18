@@ -60,9 +60,10 @@ export default function Profile({ route }) {
   
       return true
     }
+
     async function takeImageHandler(id) {
-      const hasPermission = await verifyPermissions()
-      if(!hasPermission) return
+      //const hasPermission = await verifyPermissions()
+      //if(!hasPermission) return
       const image = await launchCameraAsync({
         allowsEditing: true,
         aspect: [16, 16],
@@ -89,6 +90,7 @@ export default function Profile({ route }) {
     };
     const handleConfirm = (date) => {
       onChangeNewDate(date);
+      dispatch(update({id: currentEntry.id, date: new Date(date).toISOString()}));
       hideDatePicker();
     };
   
@@ -113,7 +115,10 @@ export default function Profile({ route }) {
                   <View style={styles.editLine}>
                     <Text style={styles.profileText}>First Name: </Text><TextInput 
                     value={newFirstName}
-                    onChangeText={onChangeNewFirstName}
+                    onChangeText={e => {
+                      onChangeNewFirstName(e);
+                      console.log(newFirstName);
+                    }}
                     style={styles.profileTextInput} >
                     </TextInput>
                   </View>
@@ -147,12 +152,10 @@ export default function Profile({ route }) {
               <View style={styles.buttonRow}>
               <TouchableOpacity style={styles.stamp} onPress={() => dispatch(dateStamp({date: new Date().toISOString(), id: currentEntry.id}))}><Text style={styles.buttonText}>Quick Stamp</Text></TouchableOpacity>
               <TouchableOpacity style={styles.stamp} onPress={() => showConfirmDialog(currentEntry.id)}><Text style={styles.buttonText}>Remove Friend</Text></TouchableOpacity>
-              {!editMode ? <TouchableOpacity style={styles.stamp} onPress={() => toggleEditMode()}><Text style={styles.buttonText}>Edit Friend</Text></TouchableOpacity> :
-                <TouchableOpacity style={styles.stamp} onPress={() => {
-                  dispatch(update({firstName: newFirstName, lastName: newLastName, phoneNumber: formatPhoneNumber(newPhoneNumber), date: newDate.toISOString(), id: currentEntry.id}));
-                  toggleEditMode()
-                }}><Text style={styles.buttonText}>Save Friend</Text></TouchableOpacity>
-              }
+              <TouchableOpacity style={styles.stamp} onPress={() => {
+                toggleEditMode();
+                console.log(newFirstName);
+                }}><Text style={styles.buttonText}>Toggle Edit</Text></TouchableOpacity>
               </View>
               <DateTimePickerModal
                 isVisible={isDatePickerVisible}
