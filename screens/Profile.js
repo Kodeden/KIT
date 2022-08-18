@@ -1,11 +1,12 @@
-import { Alert, Text, SafeAreaView, TouchableOpacity, TextInput, StyleSheet, View, Image, ScrollView } from "react-native";
+import { Alert, Text, SafeAreaView, ImageBackground, TextInput, StyleSheet, View, Image, ScrollView } from "react-native";
 import React ,{useState}  from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { add, remove, dateStamp, update, setPhoto, removePhoto } from "../redux/FriendListSlice";
 import convertUTCToLocalTime from "../functions/DateConversion";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-import { launchCameraAsync, useCameraPermissions, PermissionStatus } from 'expo-image-picker';
+import { launchCameraAsync, useCameraPermissions, PermissionStatus, launchImageLibraryAsync, useMediaLibraryPermissions } from 'expo-image-picker';
+import AntDesign from "react-native-vector-icons/AntDesign";
 
 
 
@@ -54,7 +55,7 @@ export default function Profile({ route }) {
       }
   
       if(cameraPermissionStatus.status === PermissionStatus.DENIED){
-        Alert.alert('Not allowed to use the camera!')
+        Alert.alert('Camera permissions are currently denied for this application.')
         return false
       }
   
@@ -62,14 +63,14 @@ export default function Profile({ route }) {
     }
 
     async function takeImageHandler(id) {
-      //const hasPermission = await verifyPermissions()
-      //if(!hasPermission) return
+      const hasPermission = await verifyPermissions()
+      if(!hasPermission) return
       const image = await launchCameraAsync({
         allowsEditing: true,
         aspect: [16, 16],
         quality: 0.5,
       })
-      if (image) {dispatch(setPhoto({image: image, id: id}));}
+      if (image.cancelled !== true) {dispatch(setPhoto({image: image, id: id}));}
     }
 
     const navigation = useNavigation();
@@ -99,64 +100,63 @@ export default function Profile({ route }) {
         <SafeAreaView>
           <ScrollView style={styles.scrollContainer}>
             <View style={styles.container}>
-              <Image style={styles.imageStyle} resizeMode='contain' source={(currentEntry.image) ? currentEntry.image : require('../assets/emptyAvatar3.png')} />
-              {!editMode ? 
-                <Text style={styles.titleText}>{currentEntry.firstName}'s Profile</Text> : 
-                  <View style={styles.titleLine}>
-                    <Text style={styles.titleText}>{currentEntry.firstName}'s Profile</Text>
-                    <View style={styles.imageButtonContainer}>
-                    <TouchableOpacity style={styles.imageButton} onPress={() => takeImageHandler(currentEntry.id)}><Text style={styles.buttonText}>Select Photo</Text></TouchableOpacity>
-                    <TouchableOpacity style={styles.imageButton} onPress={() => dispatch(removePhoto({id: currentEntry.id}))}><Text style={styles.buttonText}>Remove Photo</Text></TouchableOpacity>
-                    </View>
+              <View style={styles.profileContainer}>
+                <ImageBackground style={styles.imageStyle} resizeMode='contain' source={(currentEntry.image) ? currentEntry.image : require('../assets/emptyAvatar4.png')}>
+                  {editMode ? <AntDesign name="delete" style={styles.icon} onPress={() => dispatch(removePhoto({id: currentEntry.id}))} /> : null}
+                  {(editMode || !currentEntry.image) ? <AntDesign name="camera" style={styles.icon} onPress={() => takeImageHandler(currentEntry.id)} /> : null}
+                </ImageBackground>
+                <View style={styles.titleLine}>
+                  <Text style={styles.titleText}>{currentEntry.firstName}'s Profile</Text>
+                  <View style={styles.buttonRow}>
+                    <AntDesign name="edit" style={styles.icon} onPress={() => toggleEditMode()} />
+                    <AntDesign name="deleteuser" style={styles.icon} onPress={() => showConfirmDialog(currentEntry.id)} />
                   </View>
-              }
+                </View>
               {!editMode ? 
                 <Text style={styles.profileText}>First Name: {currentEntry.firstName}</Text> : 
                   <View style={styles.editLine}>
-                    <Text style={styles.profileText}>First Name: </Text><TextInput 
+                    <Text style={styles.editLineText}>First Name: </Text><TextInput 
                     value={newFirstName}
                     onChangeText={e => {
                       onChangeNewFirstName(e);
-                      console.log(newFirstName);
+                      dispatch(update({id: currentEntry.id, firstName: e}))
                     }}
-                    style={styles.profileTextInput} >
+                    style={styles.editLineTextInput} >
                     </TextInput>
                   </View>
               }
               {!editMode ? 
                 <Text style={styles.profileText}>Last Name: {currentEntry.lastName}</Text> : 
                   <View style={styles.editLine}>
-                    <Text style={styles.profileText}>Last Name: </Text><TextInput 
+                    <Text style={styles.editLineText}>Last Name: </Text><TextInput 
                     value={newLastName}
-                    onChangeText={onChangeNewLastName}
-                    style={styles.profileTextInput} >
+                    onChangeText={e => {
+                      onChangeNewLastName(e);
+                      dispatch(update({id: currentEntry.id, lastName: e}))
+                    }}
+                    style={styles.editLineTextInput} >
                     </TextInput>
                   </View>
               }
               {!editMode ? 
                 <Text style={styles.profileText}>Phone Number: {currentEntry.phoneNumber}</Text> : 
                   <View style={styles.editLine}>
-                    <Text style={styles.profileText}>Phone Number: </Text><TextInput 
+                    <Text style={styles.editLineText}>Phone Number: </Text><TextInput 
                     value={newPhoneNumber}
-                    onChangeText={onChangeNewPhoneNumber}
-                    style={styles.profileTextInput} >
+                    onChangeText={e => {
+                      onChangeNewPhoneNumber(e);
+                      dispatch(update({id: currentEntry.id, phoneNumber: formatPhoneNumber(e)}))
+                    }}
+                    style={styles.editLineTextInput} >
                     </TextInput>
                   </View>
               }
-              {!editMode ? 
-                <Text style={styles.profileText}>Last Contact Date: {convertUTCToLocalTime(currentEntry.date)}</Text> :
-                <View style={styles.editLine}>
-                  <Text style={styles.profileText}>Last Contact Date: {convertUTCToLocalTime(newDate)}</Text><TouchableOpacity style={styles.stamp} onPress={showDatePicker}><Text style={styles.buttonText}>Edit Date</Text></TouchableOpacity>
-                </View>
-              }
-              <View style={styles.buttonRow}>
-              <TouchableOpacity style={styles.stamp} onPress={() => dispatch(dateStamp({date: new Date().toISOString(), id: currentEntry.id}))}><Text style={styles.buttonText}>Quick Stamp</Text></TouchableOpacity>
-              <TouchableOpacity style={styles.stamp} onPress={() => showConfirmDialog(currentEntry.id)}><Text style={styles.buttonText}>Remove Friend</Text></TouchableOpacity>
-              <TouchableOpacity style={styles.stamp} onPress={() => {
-                toggleEditMode();
-                console.log(newFirstName);
-                }}><Text style={styles.buttonText}>Toggle Edit</Text></TouchableOpacity>
+              <View style={styles.editLine}>
+                  <Text style={styles.profileText}>Last Contact Date: {convertUTCToLocalTime(newDate)}</Text>
+                  <AntDesign name="sync" style={styles.icon} onPress={() => dispatch(dateStamp({date: new Date().toISOString(), id: currentEntry.id}))} />
+                  <AntDesign name="calendar" style={styles.icon} onPress={showDatePicker} />
               </View>
+            </View>
               <DateTimePickerModal
                 isVisible={isDatePickerVisible}
                 mode="date"
@@ -170,92 +170,116 @@ export default function Profile({ route }) {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        height:'95%',
-        width: '100%',
-        alignItems: 'flex-start',
-        justifyContent: 'flex-start',
-        backgroundColor:'#88BBD6',
-    },
-    
-    scrollContainer: {
-      height:'100%',
-      width: '100%',
-      backgroundColor: '#88BBD6',
-    },
+  container: {
+    height:'100%',
+    width: '100%',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+},
 
-    profileText: {
-        margin: 10,
-        fontSize: 20,
-    },
-    
-    titleText: {
-      margin: 10,
-      fontSize: 25,
-    },
+scrollContainer: {
+  height:'100%',
+  width: '100%',
+  backgroundColor: '#001525',
+},
 
-    profileTextInput: {
-      fontSize: 20,
-      borderWidth: 1, 
-      padding: 5, 
-      width: 180
-    },
+buttonContainer: {
+  width: '100%',
+  justifyContent:'flex-end',
+  flex: 2,
+},
 
-    stamp: {
-        margin:5,
-        height:60,
-        width:80,
-        flex: 1,
-        backgroundColor:'#99D3DF',
-        justifyContent:'center',
-        alignItems:'center',
-        borderRadius: 10,
-        borderWidth:1,
-    },
+profileContainer: {
+  flex: 3,
+  backgroundColor:'#001525',
+  width: '100%',
+},
 
-    editLine: {
-      flexDirection: "row",
-      alignItems: 'center'
-    },
+profileText: {
+    margin: 10,
+    fontSize: 20,
+    color: '#DDD'
+},
 
-    
-    titleLine: {
-      flexDirection: "row",
-      alignItems: 'center',
-      justifyContent: "space-between",
-      width: '100%'
-    },
+titleText: {
+  margin: 10,
+  fontSize: 25,
+  color: '#DDD'
+},
 
-    buttonRow: {
-      flexDirection: 'row',
-    },
+stamp: {
+    margin:5,
+    height:60,
+    width:60,
+    backgroundColor:'#99D3DF',
+    justifyContent:'center',
+    alignItems:'center',
+    borderRadius: 10,
+    borderWidth:1,
+},
 
-    buttonText: {
-      fontSize: 20,
-      paddingHorizontal: 13,
-      textAlign: 'center'
-    },
+icon: {
+    fontSize: 30,
+    backgroundColor: '#DDD',
+    borderRadius: 5,
+    margin: 5,
+    padding: 3,
+},
 
-    imageStyle: {
-      flex: 1,
-      width: '60%',
-      height: 200,
-      alignSelf: 'center'
-    },
+editLine: {
+  flexDirection: "row",
+  alignItems: 'center'
+},
 
-    imageButton: {
-      margin:5,
-      height:60,
-      width:100,
-      backgroundColor:'#99D3DF',
-      justifyContent:'center',
-      alignItems:'center',
-      borderRadius: 10,
-      borderWidth:1,
-    },
+editLineText: {
+  flex:2,
+  alignItems: 'center',
+  margin: 10,
+  fontSize: 20,
+  color: '#DDD'
+},
 
-    imageButtonContainer: {
-      flexDirection: 'row',
-    }
+editLineTextInput: {
+  flex: 3,
+  fontSize: 20,
+  borderWidth: 1, 
+  padding: 5, 
+  marginHorizontal: 5,
+  color: '#DDD',
+  borderColor: '#DDD'
+},
+
+titleLine: {
+  flexDirection: "row",
+  alignItems: 'center',
+  justifyContent: "space-between",
+  width: '100%'
+},
+
+buttonRow: {
+  flexDirection: 'row',
+  justifyContent: 'flex-end',
+  alignItems: 'center'
+},
+
+buttonText: {
+  fontSize: 20,
+  paddingHorizontal: 13,
+  textAlign: 'center'
+},
+
+imageStyle: {
+  flex: 1,
+  width: 200,
+  height: 200,
+  alignSelf: 'center',
+  alignItems: 'flex-start',
+  justifyContent: 'flex-end',
+  flexDirection: 'row',
+},
+
+imageButtonContainer: {
+  flexDirection: 'row',
+}
   });
   
