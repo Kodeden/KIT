@@ -15,38 +15,33 @@ export default function Home() {
 
     const sortedList = friends.slice().sort((a, b) => a.date.localeCompare(b.date));
 
-    const [firstName, setFirstName] = useState('');
-    const [filteredList, setFilteredList] = useState(sortedList);
-    const filter = (e) => {
-        const keyword = e;
-
-        if (keyword !== '') {
-            const results = sortedList.filter((friend) =>{
-                return friend.firstName.toLowerCase().startsWith(keyword.toLowerCase());
-            });
-            setFilteredList(results);
-        } else {
-            setFilteredList(sortedList);
-        }
-
-        setFirstName(keyword);
-    };
 
     
+    //const [filteredList, setFilteredList] = useState(friends);
+    //const filter = (e) => {
+        //const keyword = e;
 
+        //if (keyword !== '') {
+            //const results = friends.filter((friend) =>{
+                //return friend.firstName.toLowerCase().startsWith(keyword.toLowerCase());
+            //});
+            //setFilteredList(results);
+        //} else {
+            //setFilteredList(sortedList);
+       //}
+    //};
+    
 
     return (
-        <SafeAreaView style={styles.fullpage}>  
+        <SafeAreaView style={styles.fullpage}> 
             <View style={styles.filter}><TextInput
                 placeholder="Filter"
-                value={firstName}
-                onChangeText={filter} 
+
             ></TextInput></View>
             <ScrollView>    
                 <View style={styles.mainPage}>
-
                     <View style={styles.KIT}>
-                        {filteredList.map((friend) => (
+                        {sortedList.filter(name => name.firstName.includes("")).map((friend) => (
                         friend.id !== 0 ? (
                         <View key={friend.id} style={styles.friendsContainer}>    
                             <Text style={styles.friends}>{friend.firstName} {friend.lastName}</Text> 
