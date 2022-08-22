@@ -37,8 +37,8 @@ export default function Home() {
                                 onPress={() => {navigation.navigate("Profile", {id: friend.id})}}
                                 style={styles.touchableButton}>
                                 <Image
-                                style={styles.contactedBtn}
-                                source={require("../assets/emptyAvatar3.png")}>                           
+                                style={styles.profileBtn}
+                                source={require("../assets/emptyAvatar4.png")}>                           
                                 </Image>
                             </TouchableOpacity>  
 
@@ -48,7 +48,7 @@ export default function Home() {
                                 style={styles.touchableButton}>
                                 <Image
                                 style={styles.contactedBtn}
-                                source={require("../assets/speechbubble.png")}
+                                source={require("../assets/greyspeechbubble.png")}
                                 ></Image>
                             </TouchableOpacity>
 
@@ -64,7 +64,7 @@ export default function Home() {
                 title="New Friend"
                 style={styles.button}
                 onPress={() => {navigation.navigate("AddFriend")}}
-                ><Text style={{color:'black', fontFamily:'notoserif'}}>Add Friend</Text></TouchableOpacity>
+                ><Text style={{color:'#DDD', fontFamily:'notoserif'}}>Add Friend</Text></TouchableOpacity>
             </View>
         </SafeAreaView>
     );
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     mainPage:{
         flex:5,
         flexDirection:'row',
-        backgroundColor:'#88BBD6',
+        backgroundColor:'#001525',
     },
 
     filter:{
@@ -104,6 +104,12 @@ const styles = StyleSheet.create({
 
     contactedBtn:{
         height:30,
+        width:35,
+        
+    },
+
+    profileBtn:{
+        height:30,
         width:30,
     },
 
@@ -111,7 +117,11 @@ const styles = StyleSheet.create({
         flex: 4,
         fontFamily:'notoserif' ,
         fontSize:18, 
-        color:'black'    
+        color:'#DDD',
+        borderBottomWidth:1,
+        borderColor:"#DDD",
+        marginTop:4,
+        paddingBottom:5,   
     },
 
     touchableButton:{
@@ -138,7 +148,7 @@ const styles = StyleSheet.create({
     button:{
         height:40,
         width:80,
-        backgroundColor:'#99D3DF',
+        backgroundColor:'#004040',
         justifyContent:'center',
         alignItems:'center',
         borderRadius: 10,

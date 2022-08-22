@@ -28,28 +28,28 @@ export default function AddFriend() {
             <View style={styles.AddFrdPge}>
                 <View style={styles.inputContainer}>
                     <View style={styles.inputFields}>
-                        <Text>First Name:</Text><TextInput 
+                        <Text style={{color:'white'}}>First Name:</Text><TextInput 
                         value={newFirstName}
                         onChangeText={onChangeNewFirstName}
-                        style={{borderWidth:1, padding:3, width:120}} 
+                        style={{borderWidth:1, padding:3, width:120, borderColor:'white', color:'white'}} 
                         placeholder="First Name">
                         </TextInput>
                     </View>
 
                     <View style={styles.inputFields}>
-                        <Text>Last Name:</Text><TextInput 
+                        <Text style={{color:'white'}}>Last Name:</Text><TextInput 
                         value={newLastName}
                         onChangeText={onChangeNewLastName}
-                        style={{borderWidth:1, padding:3, width:120}} 
+                        style={{borderWidth:1, padding:3, width:120, borderColor:'white', color:'white'}} 
                         placeholder="Last Name">
                         </TextInput>
                     </View>
 
                     <View style={styles.inputFields}>
-                        <Text>Phone Number:</Text><TextInput
+                        <Text style={{color:'white'}}>Phone Number:</Text><TextInput
                         value={newPhoneNumber}
                         onChangeText={onChangeNewPhoneNumber}
-                        style={{borderWidth:1, padding:3, width:125, marginLeft:-10}} 
+                        style={{borderWidth:1, padding:3, width:120, borderColor:'white', color:'white', marginLeft:-24}} 
                         keyboardType="number-pad"
                         placeholder="(999)-999-9999">
                         </TextInput>
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     AddFrdPge:{
         height:800,
         width:400,
-        backgroundColor:'#CDCDCD',
+        backgroundColor:'#001525',
     },
 
     inputContainer:{
@@ -86,8 +86,8 @@ const styles = StyleSheet.create({
         width:390,
         borderWidth:1,
         margin:1,
-        borderColor:'black',
-        backgroundColor:'#88BBD6',
+        borderColor:'white',
+        backgroundColor:'#001525',
         
     },
 
