@@ -36,13 +36,13 @@ export default function Home() {
                 <Modal isVisible={isHelpVisible}>
                     <View style={styles.helpMessage}>
                         <View style={styles.welcomeHelp}>
-                            <Text style={{color:'white', fontSize:20}}>Hello! Welcome to KIT, your Keep In Touch assistant!</Text>
+                            <Text style={{color:'#DDD', fontSize:20}}>Hello! Welcome to KIT, your Keep In Touch assistant!</Text>
                         </View>
                         <View style={styles.speechExplain}>
                             <Image
                             style={styles.contactedBtn}
                             source={require("../assets/greyspeechbubble.png")}></Image>
-                            <Text style={{color:'white', fontSize:20}} > This button is a quick date set when you contact a friend.</Text>
+                            <Text style={{color:'#DDD', fontSize:20}} > This button is a quick date set when you contact a friend.</Text>
                         </View>
 
                         <View style={styles.profileHelp}>
@@ -50,13 +50,13 @@ export default function Home() {
                                 style={styles.profileBtn}
                                 source={require("../assets/emptyAvatar4.png")}>                           
                             </Image>
-                            <Text style={{color:'white', fontSize:20}}> This button will bring you to the profile page.</Text>
+                            <Text style={{color:'#DDD', fontSize:20}}> This button will bring you to the profile page.</Text>
                         </View>
 
                         <TouchableOpacity 
                         style={styles.button}
                         onPress={toggleHelp}
-                        ><Text style={{color:'white'}}>Hide Help</Text></TouchableOpacity>
+                        ><Text style={{color:'#DDD'}}>Hide Help</Text></TouchableOpacity>
                     </View>
                 </Modal>
             </View>
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
        marginTop:5,
        borderRadius:20,
        paddingLeft:10, 
-       backgroundColor:'#88BBD6',
+       backgroundColor:'#DDD',
 
     },
 
@@ -218,7 +218,7 @@ const styles = StyleSheet.create({
     button:{
         height:40,
         width:80,
-        backgroundColor:'#004040',
+        backgroundColor:'#001525',
         justifyContent:'center',
         alignItems:'center',
         borderRadius: 10,

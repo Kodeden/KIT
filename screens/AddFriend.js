@@ -28,7 +28,7 @@ export default function AddFriend() {
             <View style={styles.AddFrdPge}>
                 <View style={styles.inputContainer}>
                     <View style={styles.inputFields}>
-                        <Text style={{color:'white'}}>First Name:</Text><TextInput 
+                        <Text style={{color:'#DDD'}}>First Name:</Text><TextInput 
                         value={newFirstName}
                         onChangeText={onChangeNewFirstName}
                         style={{borderWidth:1, padding:3, width:120, borderColor:'white', color:'white'}} 
@@ -37,7 +37,7 @@ export default function AddFriend() {
                     </View>
 
                     <View style={styles.inputFields}>
-                        <Text style={{color:'white'}}>Last Name:</Text><TextInput 
+                        <Text style={{color:'#DDD'}}>Last Name:</Text><TextInput 
                         value={newLastName}
                         onChangeText={onChangeNewLastName}
                         style={{borderWidth:1, padding:3, width:120, borderColor:'white', color:'white'}} 
@@ -46,7 +46,7 @@ export default function AddFriend() {
                     </View>
 
                     <View style={styles.inputFields}>
-                        <Text style={{color:'white'}}>Phone Number:</Text><TextInput
+                        <Text style={{color:'#DDD'}}>Phone Number:</Text><TextInput
                         value={newPhoneNumber}
                         onChangeText={onChangeNewPhoneNumber}
                         style={{borderWidth:1, padding:3, width:120, borderColor:'white', color:'white', marginLeft:-24}} 
@@ -65,7 +65,7 @@ export default function AddFriend() {
                             navigation.navigate("Home");
                             }}
 
-                    ><Text>Submit</Text>
+                    ><Text style={{color:"#DDD"}}>Submit</Text>
                     </TouchableOpacity>
                 </View>
                 
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
         width:390,
         borderWidth:1,
         margin:1,
-        borderColor:'white',
+        borderColor:'#DDD',
         backgroundColor:'#001525',
         
     },
@@ -107,10 +107,11 @@ const styles = StyleSheet.create({
     button:{
         height:40,
         width:80,
-        backgroundColor:'#99D3DF',
+        backgroundColor:'#001525',
         justifyContent:'center',
         alignItems:'center',
         borderRadius: 10,
         borderWidth:1,
+        borderColor:"#DDD"
     },
 })
