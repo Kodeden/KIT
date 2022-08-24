@@ -3,7 +3,6 @@ import React from "react";
 import AddFriend from "../screens/AddFriend";
 import Home from "../screens/Home";
 import Profile from "../screens/Profile";
-import TestTableView from "../screens/TestTableView";
 
 
 const Stack = createNativeStackNavigator();
@@ -21,7 +20,6 @@ export default function StackNavigator () {
                 <Stack.Screen name="AddFriend" 
                     options={{headerStyle:{backgroundColor:'#CDCDCD'}}}
                     component={AddFriend} />
-                <Stack.Screen name="TestTableView" component={TestTableView} />
             </Stack.Group>
         </Stack.Navigator>
     )

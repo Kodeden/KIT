@@ -14,3 +14,16 @@ export default function convertUTCToLocalTime(dateString) {
       const localTime = new Date(milliseconds);
       return ((localTime.getMonth()+1)+"/"+localTime.getDate()+"/"+localTime.getFullYear());
     };
+
+export function convertToMilliseconds(dateString) {
+      let date = new Date(dateString);
+      const milliseconds = Date.UTC(
+        date.getFullYear(),
+        date.getMonth(),
+        date.getDate(),
+        date.getHours(),
+        date.getMinutes(),
+        date.getSeconds(),
+      );
+      return (milliseconds);
+    };

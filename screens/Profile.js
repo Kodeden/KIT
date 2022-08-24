@@ -101,7 +101,7 @@ export default function Profile({ route }) {
           <ScrollView style={styles.scrollContainer}>
             <View style={styles.container}>
               <View style={styles.profileContainer}>
-                <ImageBackground style={styles.imageStyle} resizeMode='contain' source={(currentEntry.image) ? currentEntry.image : require('../assets/emptyAvatar4.png')}>
+                <ImageBackground style={styles.imageStyle} resizeMode='cover' source={(currentEntry.image) ? currentEntry.image : require('../assets/emptyAvatar4.png')}>
                   {editMode ? <AntDesign name="delete" style={styles.icon} onPress={() => dispatch(removePhoto({id: currentEntry.id}))} /> : null}
                   {(editMode || !currentEntry.image) ? <AntDesign name="camera" style={styles.icon} onPress={() => takeImageHandler(currentEntry.id)} /> : null}
                 </ImageBackground>
@@ -271,7 +271,7 @@ buttonText: {
 imageStyle: {
   flex: 1,
   width: 200,
-  height: 200,
+  height: 250,
   alignSelf: 'center',
   alignItems: 'flex-start',
   justifyContent: 'flex-end',

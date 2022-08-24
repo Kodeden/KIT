@@ -19,7 +19,7 @@ const rootReducer = combineReducers({
 })
 
 const persistConfig = {
-    key: "new19",
+    key: "root",
     version: 1,
     storage: AsyncStorage,
 }

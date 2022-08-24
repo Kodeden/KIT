@@ -3,7 +3,7 @@ import React, { useState }from "react";
 import { useNavigation } from "@react-navigation/native";
 import { add, remove, dateStamp } from "../redux/FriendListSlice";
 import { useSelector, useDispatch } from "react-redux";
-import convertUTCToLocalTime from "../functions/DateConversion";
+import convertUTCToLocalTime, {convertToMilliseconds} from "../functions/DateConversion";
 
 
 
@@ -12,6 +12,8 @@ export default function Home() {
     const navigation = useNavigation();
     const dispatch = useDispatch();
     const friends = useSelector(state => state.friendList);
+    const today = convertToMilliseconds(new Date());
+    const ONE_MONTH = 2678400000;
 
     const sortedList = friends.slice().sort((a, b) => a.date.localeCompare(b.date));
 
@@ -30,8 +32,8 @@ export default function Home() {
                         {sortedList.filter(name => name.firstName.includes(filteredText)).map((friend) => (
                         friend.id !== 0 ? (
                         <View key={friend.id} style={styles.friendsContainer}>    
-                            <Text style={styles.friends}>{friend.firstName} {friend.lastName}</Text> 
-                            <Text style={styles.friends}>{convertUTCToLocalTime(friend.date)}</Text>
+                            <Text style={(today - convertToMilliseconds(friend.date) < ONE_MONTH) ? styles.friends : styles.overdue}>{friend.firstName} {friend.lastName}</Text> 
+                            <Text style={(today - convertToMilliseconds(friend.date) < ONE_MONTH) ? styles.friends : styles.overdue}>{convertUTCToLocalTime(friend.date)}</Text>
 
                             <TouchableOpacity
                                 onPress={() => {navigation.navigate("Profile", {id: friend.id})}}
@@ -99,6 +101,7 @@ const styles = StyleSheet.create({
         borderWidth:1,
         marginRight: 15,
         marginLeft:1,
+        
 
     },
 
@@ -118,6 +121,17 @@ const styles = StyleSheet.create({
         fontFamily:'notoserif' ,
         fontSize:18, 
         color:'#DDD',
+        borderBottomWidth:1,
+        borderColor:"#DDD",
+        marginTop:4,
+        paddingBottom:5,   
+    },
+
+    overdue:{
+        flex: 4,
+        fontFamily:'notoserif' ,
+        fontSize:18, 
+        color:'#F33',
         borderBottomWidth:1,
         borderColor:"#DDD",
         marginTop:4,
