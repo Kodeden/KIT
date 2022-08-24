@@ -4,7 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import { add, remove, dateStamp } from "../redux/FriendListSlice";
 import { useSelector, useDispatch } from "react-redux";
 import convertUTCToLocalTime, {convertToMilliseconds} from "../functions/DateConversion";
-
+import Modal from "react-native-modal";
 
 
 
@@ -18,6 +18,11 @@ export default function Home() {
     const sortedList = friends.slice().sort((a, b) => a.date.localeCompare(b.date));
 
     const [filteredText, setFilteredText] = useState("");
+    const [isHelpVisible, setHelpVisible] = useState(false);
+    const toggleHelp = () => {
+          setHelpVisible(!isHelpVisible);
+        };
+    
    
     return (
         <SafeAreaView style={styles.fullpage}> 
@@ -26,6 +31,36 @@ export default function Home() {
                 value={filteredText}
                 onChangeText={setFilteredText}
             ></TextInput></View>
+
+            <View style={styles.helpPopUp}>
+                <Modal isVisible={isHelpVisible}>
+                    <View style={styles.helpMessage}>
+                        <View style={styles.welcomeHelp}>
+                            <Text style={{color:'white', fontSize:20}}>Hello! Welcome to KIT, your Keep In Touch assistant!</Text>
+                        </View>
+                        <View style={styles.speechExplain}>
+                            <Image
+                            style={styles.contactedBtn}
+                            source={require("../assets/greyspeechbubble.png")}></Image>
+                            <Text style={{color:'white', fontSize:20}} > This button is a quick date set when you contact a friend.</Text>
+                        </View>
+
+                        <View style={styles.profileHelp}>
+                            <Image
+                                style={styles.profileBtn}
+                                source={require("../assets/emptyAvatar4.png")}>                           
+                            </Image>
+                            <Text style={{color:'white', fontSize:20}}> This button will bring you to the profile page.</Text>
+                        </View>
+
+                        <TouchableOpacity 
+                        style={styles.button}
+                        onPress={toggleHelp}
+                        ><Text style={{color:'white'}}>Hide Help</Text></TouchableOpacity>
+                    </View>
+                </Modal>
+            </View>
+
             <ScrollView>    
                 <View style={styles.mainPage}>
                     <View style={styles.KIT}>
@@ -67,6 +102,12 @@ export default function Home() {
                 style={styles.button}
                 onPress={() => {navigation.navigate("AddFriend")}}
                 ><Text style={{color:'#DDD', fontFamily:'notoserif'}}>Add Friend</Text></TouchableOpacity>
+
+                <TouchableOpacity
+                title="Help"
+                style={styles.button}
+                onPress={toggleHelp}
+                ><Text style={{color:'#DDD', fontFamily:'notoserif'}}>Help</Text></TouchableOpacity>
             </View>
         </SafeAreaView>
     );
@@ -74,7 +115,7 @@ export default function Home() {
 
 const styles = StyleSheet.create({
     fullpage:{
-        backgroundColor:'#CDCDCD',
+        backgroundColor:'#001525',
     },
 
     mainPage:{
@@ -103,6 +144,21 @@ const styles = StyleSheet.create({
         marginLeft:1,
         
 
+    },
+
+    helpMessage:{
+        height:400,
+        width:300,
+        alignItems:"center",
+        justifyContent:"space-around"
+    },
+
+    speechExplain:{
+        flexDirection:"row",
+    },
+
+    profileHelp:{
+        flexDirection:"row",
     },
 
     contactedBtn:{
@@ -154,7 +210,7 @@ const styles = StyleSheet.create({
         height:75,
         width:400,
         flexDirection:'row',
-        justifyContent:'center',
+        justifyContent:'space-around',
         alignItems:'center',
         backgroundColor:'#CDCDCD',
     },
@@ -180,5 +236,5 @@ const styles = StyleSheet.create({
                 title="Test TableView"
                 style={styles.button}
                 onPress={() => {navigation.navigate("TestTableView")}}
-                ><Text style={{color:'white'}}>Test TableView</Text></TouchableOpacity>
-*/
+                ><Text style={{color:'white'}}>Test TableView</Text></TouchableOpacity>*/
+
