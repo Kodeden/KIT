@@ -18,6 +18,7 @@ export default function Home() {
     const sortedList = friends.slice().sort((a, b) => a.date.localeCompare(b.date));
 
     const [filteredText, setFilteredText] = useState("");
+
     const [isHelpVisible, setHelpVisible] = useState(false);
     const toggleHelp = () => {
           setHelpVisible(!isHelpVisible);
@@ -27,7 +28,7 @@ export default function Home() {
     return (
         <SafeAreaView style={styles.fullpage}> 
             <View style={styles.filter}><TextInput
-                placeholder="Filter"
+                placeholder="Filter Friends"
                 value={filteredText}
                 onChangeText={setFilteredText}
             ></TextInput></View>
@@ -36,21 +37,35 @@ export default function Home() {
                 <Modal isVisible={isHelpVisible}>
                     <View style={styles.helpMessage}>
                         <View style={styles.welcomeHelp}>
-                            <Text style={{color:'#DDD', fontSize:20}}>Hello! Welcome to KIT, your Keep In Touch assistant!</Text>
+                            <Text style={{color:'#DDD', fontSize:20}}>
+                                Hello! Welcome to KIT, your Keep In Touch assistant!
+                            </Text>
                         </View>
                         <View style={styles.speechExplain}>
-                            <Image
-                            style={styles.contactedBtn}
-                            source={require("../assets/greyspeechbubble.png")}></Image>
-                            <Text style={{color:'#DDD', fontSize:20}} > This button is a quick date set when you contact a friend.</Text>
+                            <View>
+                                <Image
+                                style={styles.contactedBtn}
+                                source={require("../assets/greyspeechbubble.png")}></Image>
+                            </View>
+                            <View style={styles.speechExpText}>
+                                <Text style={{color:'#DDD', fontSize:20}} >
+                                    This button will update the contact date for when you last contacted a friend.
+                                </Text>
+                            </View>
                         </View>
 
                         <View style={styles.profileHelp}>
-                            <Image
-                                style={styles.profileBtn}
-                                source={require("../assets/emptyAvatar4.png")}>                           
-                            </Image>
-                            <Text style={{color:'#DDD', fontSize:20}}> This button will bring you to the profile page.</Text>
+                            <View>
+                                <Image
+                                    style={styles.profileBtn}
+                                    source={require("../assets/emptyAvatar4.png")}>                           
+                                </Image>
+                            </View>
+                            <View style={styles.profileHlpText}>
+                                <Text style={{color:'#DDD', fontSize:20}}>
+                                    This button will bring you to the profile page.
+                                </Text>
+                            </View>
                         </View>
 
                         <TouchableOpacity 
@@ -149,16 +164,29 @@ const styles = StyleSheet.create({
     helpMessage:{
         height:400,
         width:300,
+        marginLeft:25,
         alignItems:"center",
         justifyContent:"space-around"
     },
 
     speechExplain:{
         flexDirection:"row",
+        alignItems:"center",
+    },
+
+    speechExpText:{
+        marginLeft:20,
+        width:250,
     },
 
     profileHelp:{
         flexDirection:"row",
+        alignItems:"center",
+    },
+
+    profileHlpText:{
+        marginLeft:20,
+        width:250, 
     },
 
     contactedBtn:{
@@ -228,13 +256,4 @@ const styles = StyleSheet.create({
     },
 
 })
-
-
-
-
-/*                <TouchableOpacitby
-                title="Test TableView"
-                style={styles.button}
-                onPress={() => {navigation.navigate("TestTableView")}}
-                ><Text style={{color:'white'}}>Test TableView</Text></TouchableOpacity>*/
 

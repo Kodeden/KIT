@@ -31,8 +31,9 @@ export default function AddFriend() {
                         <Text style={{color:'#DDD'}}>First Name:</Text><TextInput 
                         value={newFirstName}
                         onChangeText={onChangeNewFirstName}
-                        style={{borderWidth:1, padding:3, width:120, borderColor:'white', color:'white'}} 
-                        placeholder="First Name">
+                        style={{borderWidth:1, padding:3, width:120, borderColor:'white', color:'#DDD'}} 
+                        placeholder="First Name"
+                        placeholderTextColor={'#DDD'}>
                         </TextInput>
                     </View>
 
@@ -40,8 +41,9 @@ export default function AddFriend() {
                         <Text style={{color:'#DDD'}}>Last Name:</Text><TextInput 
                         value={newLastName}
                         onChangeText={onChangeNewLastName}
-                        style={{borderWidth:1, padding:3, width:120, borderColor:'white', color:'white'}} 
-                        placeholder="Last Name">
+                        style={{borderWidth:1, padding:3, width:120, borderColor:'white', color:'#DDD'}} 
+                        placeholder="Last Name"
+                        placeholderTextColor={'#DDD'}>
                         </TextInput>
                     </View>
 
@@ -49,9 +51,10 @@ export default function AddFriend() {
                         <Text style={{color:'#DDD'}}>Phone Number:</Text><TextInput
                         value={newPhoneNumber}
                         onChangeText={onChangeNewPhoneNumber}
-                        style={{borderWidth:1, padding:3, width:120, borderColor:'white', color:'white', marginLeft:-24}} 
+                        style={{borderWidth:1, padding:3, width:120, borderColor:'white', color:'#DDD', marginLeft:-24}} 
                         keyboardType="number-pad"
-                        placeholder="(999)-999-9999">
+                        placeholder="(999)-999-9999"
+                        placeholderTextColor={'#DDD'}>
                         </TextInput>
                     </View>
 
@@ -61,7 +64,7 @@ export default function AddFriend() {
                     <TouchableOpacity
                          style={styles.button}
                          onPress={() => {
-                            dispatch(add({firstName: newFirstName, lastName: newLastName, phoneNumber: formatPhoneNumber(newPhoneNumber), date: new Date(0,0,0).toISOString()}));
+                            dispatch(add({firstName: newFirstName, lastName: newLastName, phoneNumber: formatPhoneNumber(newPhoneNumber), date: new Date().toISOString()}));
                             navigation.navigate("Home");
                             }}
 
@@ -86,6 +89,7 @@ const styles = StyleSheet.create({
         width:390,
         borderWidth:1,
         margin:1,
+        marginTop:4,
         borderColor:'#DDD',
         backgroundColor:'#001525',
         

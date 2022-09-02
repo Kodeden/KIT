@@ -31,6 +31,6 @@ const styles = StyleSheet.create({
 
 
 //function wishlist
-//1. Sort by contacted date with oldest at top
-//2. color 6 months or older in red?
+//1. Sort by contacted date with oldest at top      CHECK
+//2. color 6 months or older in red?                CHECK
 //3. Notifications for 6 months or older?
