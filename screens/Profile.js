@@ -1,4 +1,4 @@
-import { Alert, Text, SafeAreaView, ImageBackground, TextInput, StyleSheet, View, Image, ScrollView } from "react-native";
+import { Alert, Text, SafeAreaView, ImageBackground, TextInput, StyleSheet, View, Image, ScrollView, TouchableOpacity, Linking } from "react-native";
 import React ,{useState}  from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
@@ -7,6 +7,7 @@ import convertUTCToLocalTime from "../functions/DateConversion";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { launchCameraAsync, useCameraPermissions, PermissionStatus, launchImageLibraryAsync, useMediaLibraryPermissions } from 'expo-image-picker';
 import AntDesign from "react-native-vector-icons/AntDesign";
+
 
 
 
@@ -139,7 +140,7 @@ export default function Profile({ route }) {
                   </View>
               }
               {!editMode ? 
-                <Text style={styles.profileText}>Phone Number: {currentEntry.phoneNumber}</Text> : 
+                <View style={styles.editLine}><Text style={styles.profileText}>Phone Number: </Text><TouchableOpacity onPress={()=>{Linking.openURL('tel:' + currentEntry.phoneNumber);}}><Text style={styles.profileText}>{currentEntry.phoneNumber}</Text></TouchableOpacity></View> : 
                   <View style={styles.editLine}>
                     <Text style={styles.editLineText}>Phone Number: </Text><TextInput 
                     value={newPhoneNumber}
@@ -153,7 +154,9 @@ export default function Profile({ route }) {
               }
               <View style={styles.editLine}>
                   <Text style={styles.profileText}>Last Contact Date: {convertUTCToLocalTime(newDate)}</Text>
-                  <AntDesign name="sync" style={styles.icon} onPress={() => dispatch(dateStamp({date: new Date().toISOString(), id: currentEntry.id}))} />
+                  <TouchableOpacity style={styles.customicon} onPress={() => dispatch(dateStamp({date: new Date().toISOString(), id: currentEntry.id}))}>
+                    <Image style={styles.imageIcon} resizeMode='contain' source={require('../assets/blackspeechbubble.png')}></Image>
+                  </TouchableOpacity>
                   <AntDesign name="calendar" style={styles.icon} onPress={showDatePicker} />
               </View>
             </View>
@@ -224,6 +227,22 @@ icon: {
     borderRadius: 5,
     margin: 5,
     padding: 3,
+},
+
+customicon: {
+  fontSize: 30,
+  backgroundColor: '#DDD',
+  borderRadius: 5,
+  margin: 5,
+  padding: 3,
+  height: 37,
+  width: 38
+},
+
+imageIcon: {
+  margin: 1,
+  height: 32,
+  width: 31
 },
 
 editLine: {
