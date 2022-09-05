@@ -79,7 +79,7 @@ export default function Home() {
             <ScrollView>    
                 <View style={styles.mainPage}>
                     <View style={styles.KIT}>
-                        {sortedList.filter(name => name.firstName.includes(filteredText)).map((friend) => (
+                        {sortedList.filter(name => (name.firstName+name.lastName).toLocaleLowerCase().includes(filteredText.toLocaleLowerCase())).map((friend) => (
                         friend.id !== 0 ? (
                         <View key={friend.id} style={styles.friendsContainer}>    
                             <Text style={(today - convertToMilliseconds(friend.date) < ONE_MONTH) ? styles.friends : styles.overdue}>{friend.firstName} {friend.lastName}</Text> 
