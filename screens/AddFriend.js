@@ -29,6 +29,7 @@ export default function AddFriend() {
                 <View style={styles.inputContainer}>
                     <View style={styles.inputFields}>
                         <Text style={{color:'#DDD'}}>First Name:</Text><TextInput 
+                        testID="firstNameInput"
                         value={newFirstName}
                         onChangeText={onChangeNewFirstName}
                         style={{borderWidth:1, padding:3, width:120, borderColor:'white', color:'#DDD'}} 

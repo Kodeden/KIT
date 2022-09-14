@@ -19,7 +19,7 @@ export default function Home() {
 
     const [filteredText, setFilteredText] = useState("");
 
-    const [isHelpVisible, setHelpVisible] = useState(false);
+    const [isHelpVisible, setHelpVisible] = useState(true);
     const toggleHelp = () => {
           setHelpVisible(!isHelpVisible);
         };
@@ -86,6 +86,7 @@ export default function Home() {
                             <Text style={(today - convertToMilliseconds(friend.date) < ONE_MONTH) ? styles.friends : styles.overdue}>{convertUTCToLocalTime(friend.date)}</Text>
 
                             <TouchableOpacity
+                                testID={friend.firstName+'Profile'}
                                 onPress={() => {navigation.navigate("Profile", {id: friend.id})}}
                                 style={styles.touchableButton}>
                                 <Image
@@ -114,12 +115,14 @@ export default function Home() {
             <View style={styles.navBtnCtn}>
                 <TouchableOpacity
                 title="New Friend"
+                testID="newFriendButton"
                 style={styles.button}
                 onPress={() => {navigation.navigate("AddFriend")}}
                 ><Text style={{color:'#DDD', fontFamily:'notoserif'}}>Add Friend</Text></TouchableOpacity>
 
                 <TouchableOpacity
                 title="Help"
+                testID="helpButton"
                 style={styles.button}
                 onPress={toggleHelp}
                 ><Text style={{color:'#DDD', fontFamily:'notoserif'}}>Help</Text></TouchableOpacity>
@@ -131,6 +134,7 @@ export default function Home() {
 const styles = StyleSheet.create({
     fullpage:{
         backgroundColor:'#001525',
+        marginBottom: 100,
     },
 
     mainPage:{
