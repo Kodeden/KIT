@@ -163,6 +163,7 @@ export default function Profile({ route }) {
               <DateTimePickerModal
                 isVisible={isDatePickerVisible}
                 mode="date"
+                date={new Date()}
                 onConfirm={handleConfirm}
                 onCancel={hideDatePicker}
               />
